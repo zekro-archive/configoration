@@ -57,6 +57,10 @@ type Section interface {
 	// If the value selected is not a float64,
 	// ErrInvalidType will be returned.
 	GetFloat64(key string) (float64, error)
+
+	// IsNil returns true if the current section
+	// instance is nil.
+	IsNil() bool
 }
 
 // section is the default implementation of
@@ -157,6 +161,10 @@ func (s *section) GetFloat64(key string) (float64, error) {
 	}
 
 	return vt, err
+}
+
+func (s *section) IsNil() bool {
+	return s == nil
 }
 
 // getSection returns the desired section

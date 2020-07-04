@@ -36,7 +36,6 @@ func (p *EnvProvider) GetMap() (map[string]interface{}, error) {
 		e = e[len(p.prefix):]
 
 		kvSplit := strings.SplitN(e, "=", 2)
-		fmt.Println(kvSplit)
 		key := kvSplit[0]
 		val := kvSplit[1]
 

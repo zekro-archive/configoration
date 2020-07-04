@@ -19,5 +19,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(c.GetString("b:o"))
+	fmt.Println(c.GetSection("g").GetSection("e").GetValue("f"))
 }
