@@ -11,6 +11,10 @@ type ConfigMap map[string]interface{}
 // Existing keys are owerwritten and non-
 // existing keys are added to m.
 func (m ConfigMap) merge(confMap ConfigMap) {
+	if confMap == nil {
+		return
+	}
+
 	for k, v := range confMap {
 		if vm, ok := v.(map[interface{}]interface{}); ok {
 			nm := make(map[string]interface{})
@@ -37,10 +41,11 @@ func (m ConfigMap) mergeInnerMap(confMap ConfigMap, innerKey string) {
 		m[innerKey] = make(ConfigMap)
 	}
 
-	_, ok := m[innerKey].(ConfigMap)
+	innerMap, ok := m[innerKey].(ConfigMap)
 	if !ok {
-		return
+		m[innerKey] = make(ConfigMap)
+		innerMap = m[innerKey].(ConfigMap)
 	}
 
-	m[innerKey].(ConfigMap).merge(confMap)
+	innerMap.merge(confMap)
 }

@@ -9,14 +9,15 @@ import (
 func main() {
 	c, err := configoration.NewBuilder().
 		SetBasePath("./data").
-		AddJsonFile("test2.json", true).
 		AddJsonFile("test1.json", true).
+		AddJsonFile("test2.json", true).
 		AddYamlFile("test3.yaml", true).
+		AddEnvironmentVariables("TEST_", false).
 		Build()
 
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(c.GetValue("y:e"))
+	fmt.Println(c.GetString("b:o"))
 }

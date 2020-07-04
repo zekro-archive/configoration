@@ -51,6 +51,12 @@ func (b *Builder) AddYamlFile(fileName string, optional bool) *Builder {
 	return b.AddProvider(p)
 }
 
+// TODO: Docs
+func (b *Builder) AddEnvironmentVariables(prefix string, lowercase bool) *Builder {
+	p := providers.NewEnvProvider(prefix, lowercase)
+	return b.AddProvider(p)
+}
+
 // AddProvider adds a generic Provider instance
 // which must implememt the Provider interface.
 func (b *Builder) AddProvider(p Provider) *Builder {

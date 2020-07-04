@@ -1,6 +1,8 @@
 package configoration
 
 import (
+	"fmt"
+	"strconv"
 	"strings"
 	"sync"
 )
@@ -109,7 +111,7 @@ func (s *section) GetString(key string) (string, error) {
 
 	vt, ok := v.(string)
 	if !ok {
-		return "", ErrInvalidType
+		vt = valToString(v)
 	}
 
 	return vt, nil
@@ -123,10 +125,10 @@ func (s *section) GetInt(key string) (int, error) {
 
 	vt, ok := v.(int)
 	if !ok {
-		return 0, ErrInvalidType
+		vt, err = strconv.Atoi(valToString(v))
 	}
 
-	return vt, nil
+	return vt, err
 }
 
 func (s *section) GetBool(key string) (bool, error) {
@@ -137,10 +139,10 @@ func (s *section) GetBool(key string) (bool, error) {
 
 	vt, ok := v.(bool)
 	if !ok {
-		return false, ErrInvalidType
+		vt, err = strconv.ParseBool(valToString(v))
 	}
 
-	return vt, nil
+	return vt, err
 }
 
 func (s *section) GetFloat64(key string) (float64, error) {
@@ -151,10 +153,10 @@ func (s *section) GetFloat64(key string) (float64, error) {
 
 	vt, ok := v.(float64)
 	if !ok {
-		return 0, ErrInvalidType
+		vt, err = strconv.ParseFloat(valToString(v), 64)
 	}
 
-	return vt, nil
+	return vt, err
 }
 
 // getSection returns the desired section
@@ -180,4 +182,11 @@ func (s *section) getSection(sec string) *section {
 // array of strings.
 func splitSections(key string) []string {
 	return strings.Split(key, Delimiter)
+}
+
+// valToString returns the passed interface
+// as a string using fmt.Sprintf("%v", v) as
+// converter.
+func valToString(v interface{}) string {
+	return fmt.Sprintf("%v", v)
 }
