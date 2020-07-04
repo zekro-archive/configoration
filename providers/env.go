@@ -6,17 +6,19 @@ import (
 	"strings"
 )
 
-// TODO: Docs
-
 const (
 	envDelimiter = "__"
 )
 
+// EnvProvider implements the Provider interface for
+// environment variables as configuration providers.
 type EnvProvider struct {
 	prefix    string
 	lowercase bool
 }
 
+// NewEnvProvider returns a new instance of EnvProvider
+// with the passed prefix and lowercase specification.
 func NewEnvProvider(prefix string, lowercase bool) *EnvProvider {
 	return &EnvProvider{
 		prefix:    prefix,
