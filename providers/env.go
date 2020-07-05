@@ -1,7 +1,6 @@
 package providers
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -53,7 +52,6 @@ func (p *EnvProvider) GetMap() (map[string]interface{}, error) {
 		}
 	}
 
-	fmt.Printf("%+v\n", env)
 	return env, nil
 }
 
