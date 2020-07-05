@@ -8,7 +8,7 @@ import (
 
 func main() {
 	c, err := configoration.NewBuilder().
-		SetBasePath("./data").
+		SetBasePath("./testdata").
 		AddJsonFile("test1.json", true).
 		AddJsonFile("test2.json", true).
 		AddYamlFile("test3.yaml", true).
@@ -19,5 +19,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(c.GetSection("g").GetSection("e").GetValue("f"))
+	fmt.Println(c)
 }
