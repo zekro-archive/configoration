@@ -19,5 +19,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(c)
+	fmt.Println(
+		c.GetSection("g:e").GetBool("f"),
+	)
 }

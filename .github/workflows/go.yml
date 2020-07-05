@@ -28,3 +28,6 @@ jobs:
 
     - name: Run Tests
       run: go test -v -timeout 30s -cover .
+
+    - name: Build and Run Examples
+      run: go run -v examples/*.go
