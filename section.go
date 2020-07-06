@@ -58,6 +58,31 @@ type Section interface {
 	// ErrInvalidType will be returned.
 	GetFloat64(key string) (float64, error)
 
+	// GetValueOrDef returns an interface value
+	// by key. If the desired value could not be
+	// found, def will be returned.
+	GetValueOrDef(key string, def interface{}) interface{}
+
+	// GetStringOrDef is shorthand for GetValueOrDef
+	// and returns a string which is eather the
+	// found value or the vlaue of def.
+	GetStringOrDef(key string, def string) string
+
+	// GetIntOrDef is shorthand for GetValueOrDef
+	// and returns an int which is eather the
+	// found value or the vlaue of def.
+	GetIntOrDef(key string, def int) int
+
+	// GetBoolOrDef is shorthand for GetValueOrDef
+	// and returns a bool which is eather the
+	// found value or the vlaue of def.
+	GetBoolOrDef(key string, def bool) interface{}
+
+	// GetFloat64OrDef is shorthand for GetValueOrDef
+	// and returns a float64 which is eather the
+	// found value or the vlaue of def.
+	GetFloat64OrDef(key string, def float64) float64
+
 	// IsNil returns true if the current section
 	// instance is nil.
 	IsNil() bool
@@ -161,6 +186,46 @@ func (s *section) GetFloat64(key string) (float64, error) {
 	}
 
 	return vt, err
+}
+
+func (s *section) GetValueOrDef(key string, def interface{}) interface{} {
+	v, err := s.GetValue(key)
+	if err != nil {
+		v = def
+	}
+	return v
+}
+
+func (s *section) GetStringOrDef(key string, def string) string {
+	v, err := s.GetString(key)
+	if err != nil {
+		v = def
+	}
+	return v
+}
+
+func (s *section) GetIntOrDef(key string, def int) int {
+	v, err := s.GetInt(key)
+	if err != nil {
+		v = def
+	}
+	return v
+}
+
+func (s *section) GetBoolOrDef(key string, def bool) interface{} {
+	v, err := s.GetBool(key)
+	if err != nil {
+		v = def
+	}
+	return v
+}
+
+func (s *section) GetFloat64OrDef(key string, def float64) float64 {
+	v, err := s.GetFloat64(key)
+	if err != nil {
+		v = def
+	}
+	return v
 }
 
 func (s *section) IsNil() bool {
